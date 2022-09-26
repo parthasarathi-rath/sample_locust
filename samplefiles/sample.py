@@ -11,8 +11,10 @@ class User(HttpUser):
 
     @task
     def task1(self):
-        self.client.get(url="users?page=2", verify=False)
+        with self.client.get(url="users?page=2", verify=False, catch_response=True) as resp:
+            print(resp.status_code)
 
     @task
     def task2(self):
-        self.client.post(url="users", verify=False)
+        with self.client.post(url="users", verify=False, catch_response=True) as resp:
+            print(resp.status_code)
